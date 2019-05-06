@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layPage快速使用</title>
+  <!-- dependences -->
+  <link rel="stylesheet" href="library/layui-v2.4.5/layui/css/layui.css">
+  <script src="library/layui-v2.4.5/layui/layui.all.js"></script>
+  <script src="library/jquery/3.3.1/jquery.js"></script>
+  <script src="javascripts/laypage.js"></script><!-- 模块化js -->
+  
+</head>
+<body>
+ <h1>layPage快速使用</h1>
+<div id="test1"></div>
+<script>
+  var laypage = layui.laypage;
+  
+  //执行一个laypage实例
+  laypage.render({
+    elem: 'test1',
+    count: 70, //数据总数，从服务端得到
+    jump: function(obj, first){
+      //obj包含了当前分页的所有参数，比如：
+      console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+      console.log(obj.limit); //得到每页显示的条数
+      $.ajax({
+        url: 'https://www.layui.com/demo/table/user/?page=1&limit=30',
+        type: 'get',
+        success: function (data, status) {
+          console.log(data);
+          
+
+        },  
+        error: function (data, status) {
+
+          console.log(data);
+        }
+    });
+      //首次不执行
+      if(!first){
+        //do something
+      }
+    },
+  });
+</script>
+</body>
+</html>
+      
